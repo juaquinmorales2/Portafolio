@@ -119,7 +119,7 @@ export const Contact = () => {
               as="h1"
               style={getDelay(tokens.base.durationXS, initDelay, 0.3)}
             >
-              <DecoderText text="Say hello" start={status !== 'exited'} delay={300} />
+              <DecoderText text="Hablemos" start={status !== 'exited'} delay={300} />
             </Heading>
             <Divider
               className={styles.divider}
@@ -139,7 +139,7 @@ export const Contact = () => {
               data-status={status}
               style={getDelay(tokens.base.durationXS, initDelay)}
               autoComplete="email"
-              label="Your email"
+              label="Email"
               type="email"
               name="email"
               maxLength={MAX_EMAIL_LENGTH}
@@ -152,7 +152,7 @@ export const Contact = () => {
               data-status={status}
               style={getDelay(tokens.base.durationS, initDelay)}
               autoComplete="off"
-              label="Message"
+              label="Deja un Mensaje..."
               name="message"
               maxLength={MAX_MESSAGE_LENGTH}
               {...message}
@@ -188,11 +188,11 @@ export const Contact = () => {
               style={getDelay(tokens.base.durationM, initDelay)}
               disabled={sending}
               loading={sending}
-              loadingText="Sending..."
+              loadingText="Enviando..."
               icon="send"
               type="submit"
             >
-              Send message
+              Enviar
             </Button>
           </Form>
         )}
@@ -206,7 +206,7 @@ export const Contact = () => {
               className={styles.completeTitle}
               data-status={status}
             >
-              Message Sent
+              Mensave Enviado
             </Heading>
             <Text
               size="l"
@@ -215,7 +215,7 @@ export const Contact = () => {
               data-status={status}
               style={getDelay(tokens.base.durationXS)}
             >
-              I’ll get back to you within a couple days, sit tight
+              Te responderé lo antes posible.
             </Text>
             <Button
               secondary
@@ -226,7 +226,7 @@ export const Contact = () => {
               href="/"
               icon="chevron-right"
             >
-              Back to homepage
+              Volver
             </Button>
           </div>
         )}

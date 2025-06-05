@@ -1,9 +1,9 @@
-import backgroundSprLarge from '~/assets/spr-background-large.jpg';
+import backgroundSprLarge from '~/assets/fondo2.jpeg';
 import backgroundSprPlaceholder from '~/assets/spr-background-placeholder.jpg';
 import imageSprBackgroundVolcanismLarge from '~/assets/spr-background-volcanism-large.jpg';
 import imageSprBackgroundVolcanismPlaceholder from '~/assets/spr-background-volcanism-placeholder.jpg';
 import imageSprBackgroundVolcanism from '~/assets/spr-background-volcanism.jpg';
-import backgroundSpr from '~/assets/spr-background.jpg';
+import backgroundSpr from '~/assets/fondo.jpeg';
 import imageSprComponentsDarkLarge from '~/assets/spr-components-dark-large.png';
 import imageSprComponentsDarkPlaceholder from '~/assets/spr-components-dark-placeholder.png';
 import imageSprComponentsDark from '~/assets/spr-components-dark.png';
@@ -70,14 +70,14 @@ const EarthSection = lazy(() =>
   import('./earth').then(module => ({ default: module.EarthSection }))
 );
 
-const title = 'Designing the future of education';
+const title = 'Desarollando por amor';
 const description =
-  'I worked as the design lead on a major iteration of Smart Sparrow’s product. We took the platform in a bold new direction, focusing on becoming the best tool for learning designers.';
+  'El desarrollo de páginas web es mi pasión, aquí verás algunas de mis páginas favoritas que he hecho este último tiempo';
 const roles = [
-  'Art Direction',
-  'UX and UI Design',
-  'Front End Development',
-  'Motion Design',
+  'Comunicación con el cliente',
+  'Diseño Gráfico',
+  'Desarrollo Full-Stack',
+  'Mantenimiento',
 ];
 
 export const meta = () => {
@@ -105,7 +105,6 @@ export const SmartSparrow = () => {
         <ProjectHeader
           title={title}
           description={description}
-          url="https://www.smartsparrow.com/"
           roles={roles}
         />
         <ProjectSection padding="top">
@@ -132,15 +131,12 @@ export const SmartSparrow = () => {
         </ProjectSection>
         <ProjectSection>
           <ProjectTextRow>
-            <ProjectSectionHeading>The problem</ProjectSectionHeading>
+            <ProjectSectionHeading>Tarde Azul con Benjamin Castro</ProjectSectionHeading>
             <ProjectSectionText>
-              In 2017, Smart Sparrow began a project to build an entirely new platform to
-              from the ground up to serve as the most powerful tool for educators to
-              create online learning experiences. The old platform was built in Flash, and
-              there were a number of user experience problems to solve in the process of
-              moving the platform to Javascript. The primary goals for the project were
-              reducing barriers to collaboration, and making the platform both easier for
-              new users, but with plenty of room to scale for advanced users.
+              Página web para la radio más escuchada del este, con +50 mil oyentes mensuales y desarrollada para el locutor Benjamin Castro en 93.5 FM.
+              El proyecto incluyó diseño gráfico personalizado, integración de streaming en vivo,
+              y una interfaz intuitiva para los oyentes. Se priorizó la comunicación constante con el cliente para asegurar
+              que la identidad de la radio se reflejara fielmente en cada sección del sitio.
             </ProjectSectionText>
           </ProjectTextRow>
         </ProjectSection>

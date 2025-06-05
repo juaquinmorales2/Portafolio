@@ -1,15 +1,15 @@
-import gamestackTexture2Large from '~/assets/gamestack-list-large.jpg';
+import gamestackTexture2Large from '~/assets/gamestack-list-large.png';
 import gamestackTexture2Placeholder from '~/assets/gamestack-list-placeholder.jpg';
-import gamestackTexture2 from '~/assets/gamestack-list.jpg';
-import gamestackTextureLarge from '~/assets/gamestack-login-large.jpg';
+import gamestackTexture2 from '~/assets/gamestack-list.png';
+import gamestackTextureLarge from '~/assets/gamestack-login-large.png';
 import gamestackTexturePlaceholder from '~/assets/gamestack-login-placeholder.jpg';
-import gamestackTexture from '~/assets/gamestack-login.jpg';
-import sliceTextureLarge from '~/assets/slice-app-large.jpg';
+import gamestackTexture from '~/assets/gamestack-login.png';
+import sliceTextureLarge from '~/assets/slice-app-large.png';
 import sliceTexturePlaceholder from '~/assets/slice-app-placeholder.jpg';
-import sliceTexture from '~/assets/slice-app.jpg';
-import sprTextureLarge from '~/assets/spr-lesson-builder-dark-large.jpg';
+import sliceTexture from '~/assets/slice-app.png';
+import sprTextureLarge from '~/assets/viana1.png';
 import sprTexturePlaceholder from '~/assets/spr-lesson-builder-dark-placeholder.jpg';
-import sprTexture from '~/assets/spr-lesson-builder-dark.jpg';
+import sprTexture from '~/assets/viana2.png';
 import { Footer } from '~/components/footer';
 import { baseMeta } from '~/utils/meta';
 import { Intro } from './intro';
@@ -19,7 +19,7 @@ import { useEffect, useRef, useState } from 'react';
 import config from '~/config.json';
 import styles from './home.module.css';
 
-// Prefetch draco decoader wasm
+
 export const links = () => {
   return [
     {
@@ -41,8 +41,9 @@ export const links = () => {
 
 export const meta = () => {
   return baseMeta({
-    title: 'Designer + Developer',
-    description: `Design portfolio of ${config.name} — a product designer working on web & mobile apps with a focus on motion, experience design, and accessibility.`,
+    title: '',
+    description: `Design portfolio of ${config.name} — a product designer working on web & mobile apps with
+     a focus on motion, experience design, and accessibility.`,
   });
 };
 
@@ -103,9 +104,10 @@ export const Home = () => {
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
         index={1}
-        title="Designing the future of education"
-        description="Designing a platform to help educators build better online courseware"
-        buttonText="View project"
+        title="Mis páginas web"
+        description="Páginas hechas para clientes a base de sus necesidades y aspiraciones,
+        cubriendo sus expectativas y deseos"
+        buttonText="Ver más"
         buttonLink="/projects/smart-sparrow"
         model={{
           type: 'laptop',
@@ -124,9 +126,9 @@ export const Home = () => {
         sectionRef={projectTwo}
         visible={visibleSections.includes(projectTwo.current)}
         index={2}
-        title="Video game progress tracking"
-        description="Design and development for a video game tracking app built in React Native"
-        buttonText="View website"
+        title="Mi App en Play Store"
+        description="Mira la app de streaming de la radio más escuchada del Uruguay"
+        buttonText="Ver en Play Store"
         buttonLink="https://gamestack.hamishw.com"
         model={{
           type: 'phone',
@@ -148,9 +150,9 @@ export const Home = () => {
         sectionRef={projectThree}
         visible={visibleSections.includes(projectThree.current)}
         index={3}
-        title="Biomedical image collaboration"
-        description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
-        buttonText="View project"
+        title="Mis Software"
+        description="Software adaptable para negocios bajo el nombre de NegocioFacil"
+        buttonText="Adaptable a Tu Negocio"
         buttonLink="/projects/slice"
         model={{
           type: 'laptop',

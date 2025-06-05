@@ -1,6 +1,6 @@
-import profileImgLarge from '~/assets/profile-large.jpg';
+import profileImgLarge from '~/assets/profile.png';
 import profileImgPlaceholder from '~/assets/profile-placeholder.jpg';
-import profileImg from '~/assets/profile.jpg';
+import profileImg from '~/assets/profile2.png';
 import { Button } from '~/components/button';
 import { DecoderText } from '~/components/decoder-text';
 import { Divider } from '~/components/divider';
@@ -12,25 +12,19 @@ import { Text } from '~/components/text';
 import { Transition } from '~/components/transition';
 import { Fragment, useState } from 'react';
 import { media } from '~/utils/style';
-import katakana from './katakana.svg';
 import styles from './profile.module.css';
 
 const ProfileText = ({ visible, titleId }) => (
   <Fragment>
     <Heading className={styles.title} data-visible={visible} level={3} id={titleId}>
-      <DecoderText text="Hi there" start={visible} delay={500} />
+      <DecoderText text="Sobre mi:" start={visible} delay={500} />
     </Heading>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
-      I’m Hamish, currently I live in Sydney working as a senior product designer at{' '}
-      <Link href="https://www.qwilr.com">Qwilr</Link>. My projects include UX design, UI
-      animations, and icon illustration. Being comfortable with code allows me to rapidly
-      prototype and validate experiences. If you’re interested in the tools and software I
-      use check out my <Link href="/uses">uses page</Link>.
-    </Text>
-    <Text className={styles.description} data-visible={visible} size="l" as="p">
-      In my spare time I like to practice Brazilian Jiu Jitsu, play video games, and{' '}
-      <Link href="/projects/volkihar-knight">make mods</Link>. I’m always down for hearing
-      about new projects, so feel free to drop me a line.
+      Soy Juaquin Morales, desarrollador full-stack con sólida experiencia en la creación y venta de páginas web personalizadas. Actualmente me especializo en el desarrollo de soluciones digitales eficientes que combinan diseño atractivo, 
+      usabilidad y rendimiento. Mi trayectoria incluye trato directo con clientes,
+       comprensión de sus necesidades y transformación de ideas en productos funcionales.
+        Gracias a mis conocimientos en frontend y backend, puedo desarrollar sitios completos optimizados para distintos dispositivos.
+         Si deseas conocer más sobre mis herramientas de trabajo y proyectos recientes, te invito a explorar mi portafolio.
     </Text>
   </Fragment>
 );
@@ -62,7 +56,7 @@ export const Profile = ({ id, visible, sectionRef }) => {
                 href="/contact"
                 icon="send"
               >
-                Send me a message
+                Envíame un Mensaje
               </Button>
             </div>
             <div className={styles.column}>
@@ -74,7 +68,6 @@ export const Profile = ({ id, visible, sectionRef }) => {
                   collapseDelay={1000}
                 />
                 <div className={styles.tagText} data-visible={visible}>
-                  About me
                 </div>
               </div>
               <div className={styles.image}>
@@ -86,11 +79,8 @@ export const Profile = ({ id, visible, sectionRef }) => {
                   width={960}
                   height={1280}
                   sizes={`(max-width: ${media.mobile}px) 100vw, 480px`}
-                  alt="Me smiling like a goofball at the Qwilr office in Sydney"
+                  alt="Yo en Mexico"
                 />
-                <svg className={styles.svg} data-visible={visible} viewBox="0 0 136 766">
-                  <use href={`${katakana}#katakana-profile`} />
-                </svg>
               </div>
             </div>
           </div>
