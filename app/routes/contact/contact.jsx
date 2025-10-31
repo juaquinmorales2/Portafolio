@@ -10,12 +10,9 @@ import { Text } from '~/components/text';
 import { tokens } from '~/components/theme-provider/theme';
 import { Transition } from '~/components/transition';
 import { useFormInput } from '~/hooks';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { cssProps, msToNum, numToMs } from '~/utils/style';
 import { baseMeta } from '~/utils/meta';
-import { Form, useActionData, useNavigation } from '@remix-run/react';
-import { json } from '@remix-run/cloudflare';
-import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 import styles from './contact.module.css';
 
 export const meta = () => {
@@ -30,87 +27,43 @@ const MAX_EMAIL_LENGTH = 512;
 const MAX_MESSAGE_LENGTH = 4096;
 const EMAIL_PATTERN = /(.+)@(.+){2,}\.(.+){2,}/;
 
-export async function action({ context, request }) {
-  const ses = new SESClient({
-    region: 'us-east-1',
-    credentials: {
-      accessKeyId: context.cloudflare.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: context.cloudflare.env.AWS_SECRET_ACCESS_KEY,
-    },
-  });
-
-  const formData = await request.formData();
-  const isBot = String(formData.get('name'));
-  const email = String(formData.get('email'));
-  const message = String(formData.get('message'));
-  const errors = {};
-
-  // Return without sending if a bot trips the honeypot
-  if (isBot) return json({ success: true });
-
-  // Handle input validation on the server
-  if (!email || !EMAIL_PATTERN.test(email)) {
-    errors.email = 'Please enter a valid email address.';
-  }
-
-  if (!message) {
-    errors.message = 'Please enter a message.';
-  }
-
-  if (email.length > MAX_EMAIL_LENGTH) {
-    errors.email = `Email address must be shorter than ${MAX_EMAIL_LENGTH} characters.`;
-  }
-
-  if (message.length > MAX_MESSAGE_LENGTH) {
-    errors.message = `Message must be shorter than ${MAX_MESSAGE_LENGTH} characters.`;
-  }
-
-  if (Object.keys(errors).length > 0) {
-    return json({ errors });
-  }
-
-  // Send email via Amazon SES
-  await ses.send(
-    new SendEmailCommand({
-      Destination: {
-        ToAddresses: [context.cloudflare.env.EMAIL],
-      },
-      Message: {
-        Body: {
-          Text: {
-            Data: `From: ${email}\n\n${message}`,
-          },
-        },
-        Subject: {
-          Data: `Portfolio message from ${email}`,
-        },
-      },
-      Source: `Portfolio <${context.cloudflare.env.FROM_EMAIL}>`,
-      ReplyToAddresses: [email],
-    })
-  );
-
-  return json({ success: true });
-}
+// No server-side action: submission is handled by formsubmit.co
 
 export const Contact = () => {
   const errorRef = useRef();
   const email = useFormInput('');
   const message = useFormInput('');
   const initDelay = tokens.base.durationS;
-  const actionData = useActionData();
-  const { state } = useNavigation();
-  const sending = state === 'submitting';
+  const [sent, setSent] = useState(false);
+  const [errors, setErrors] = useState(null);
 
   return (
     <Section className={styles.contact}>
-      <Transition unmount in={!actionData?.success} timeout={1600}>
+      <Transition unmount in={!sent} timeout={1600}>
         {({ status, nodeRef }) => (
-          <Form
-            unstable_viewTransition
+          <form
             className={styles.form}
-            method="post"
+            method="POST"
+            action="https://formsubmit.co/juaquin.moralesbb@gmail.com"
             ref={nodeRef}
+            target="_blank"
+            onSubmit={e => {
+              // simple client-side validation
+              const val = email.value;
+              const msg = message.value;
+              const errs = {};
+              if (!val || !EMAIL_PATTERN.test(val)) errs.email = 'Please enter a valid email address.';
+              if (!msg) errs.message = 'Please enter a message.';
+              if (val.length > MAX_EMAIL_LENGTH) errs.email = `Email address must be shorter than ${MAX_EMAIL_LENGTH} characters.`;
+              if (msg.length > MAX_MESSAGE_LENGTH) errs.message = `Message must be shorter than ${MAX_MESSAGE_LENGTH} characters.`;
+              if (Object.keys(errs).length) {
+                e.preventDefault();
+                setErrors(errs);
+              } else {
+                setErrors(null);
+                setSent(true);
+              }
+            }}
           >
             <Heading
               className={styles.title}
@@ -133,6 +86,11 @@ export const Contact = () => {
               name="name"
               maxLength={MAX_EMAIL_LENGTH}
             />
+            {/* formsubmit.co configuration */}
+            <input type="hidden" name="_subject" value="Portfolio message" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="box" />
+            <input type="hidden" name="_next" value="/contact?success=true" />
             <Input
               required
               className={styles.input}
@@ -159,7 +117,7 @@ export const Contact = () => {
             />
             <Transition
               unmount
-              in={!sending && actionData?.errors}
+              in={!!errors}
               timeout={msToNum(tokens.base.durationM)}
             >
               {({ status: errorStatus, nodeRef }) => (
@@ -174,8 +132,8 @@ export const Contact = () => {
                   <div className={styles.formErrorContent} ref={errorRef}>
                     <div className={styles.formErrorMessage}>
                       <Icon className={styles.formErrorIcon} icon="error" />
-                      {actionData?.errors?.email}
-                      {actionData?.errors?.message}
+                      {errors?.email}
+                      {errors?.message}
                     </div>
                   </div>
                 </div>
@@ -184,20 +142,20 @@ export const Contact = () => {
             <Button
               className={styles.button}
               data-status={status}
-              data-sending={sending}
+              data-sending={false}
               style={getDelay(tokens.base.durationM, initDelay)}
-              disabled={sending}
-              loading={sending}
+              disabled={false}
+              loading={false}
               loadingText="Enviando..."
               icon="send"
               type="submit"
             >
               Enviar
             </Button>
-          </Form>
+          </form>
         )}
       </Transition>
-      <Transition unmount in={actionData?.success}>
+      <Transition unmount in={sent}>
         {({ status, nodeRef }) => (
           <div className={styles.complete} aria-live="polite" ref={nodeRef}>
             <Heading
